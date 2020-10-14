@@ -36,6 +36,7 @@ bot.hears(/\/watch\s*([^\n\r]*)/, (ctx) => {
         console.log("Melhor preço atual é: " + bestPrice)
         ctx.reply("Melhor preço atual é: " + bestPrice)
     })
+    .catch((err) => console.log("Error: " + err))
 })
 
 bot.launch()
