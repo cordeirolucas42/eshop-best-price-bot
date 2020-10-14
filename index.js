@@ -4,12 +4,13 @@ const { JSDOM } = jsdom;
 var EnvVar = require('dotenv')
 EnvVar.config();
 const { Telegraf } = require('telegraf')
-const Telegram = require('telegraf/telegram')
+// const Telegram = require('telegraf/telegram')
 
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
-const telegram = new Telegram(process.env.TELEGRAM_TOKEN)
+// const telegram = new Telegram(process.env.TELEGRAM_TOKEN)
 
 async function GetBestPrice(searchURL) {
+    console.log("A URL é: " + searchURL)
   const response = await got(searchURL);
   const dom = new JSDOM(response.body);
 
@@ -31,15 +32,13 @@ bot.start((ctx) => {
 bot.hears(/\/watch\s*([^\n\r]*)/, (ctx) => {
     // ctx.reply("Registrado!" + JSON.stringify(ctx))
     ctx.reply("A URL é: " + ctx.match[1])
+    
     GetBestPrice(ctx.match[1])
     .then((bestPrice)=> {
         console.log("Melhor preço atual é: " + bestPrice)
         ctx.reply("Melhor preço atual é: " + bestPrice)
     })
-    .catch((err) => console.log("Error: " + err))
+    .catch((err) => console.log("Connection error: " + err))
 })
 
 bot.launch()
-
-// GetBestPrice()
-// .then(()=> console.log("finished"))
