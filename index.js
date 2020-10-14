@@ -1,14 +1,13 @@
 const got = require('got');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+var EnvVar = require('dotenv')
+EnvVar.config();
 const { Telegraf } = require('telegraf')
 const Telegram = require('telegraf/telegram')
 
-const bot = new Telegraf("1305558612:AAGz4TlWpfaqWB0nG6VaDTRW1xAJsZ038KA")
-const telegram = new Telegram("1305558612:AAGz4TlWpfaqWB0nG6VaDTRW1xAJsZ038KA")
-
-// const searchURL= 'https://eshop-prices.com/games/378-the-legend-of-zelda-breath-of-the-wild?currency=BRL';
-// const searchURL= 'https://eshop-prices.com/games/5218-hades?currency=BRL';
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
+const telegram = new Telegram(process.env.TELEGRAM_TOKEN)
 
 async function GetBestPrice(searchURL) {
   const response = await got(searchURL);
@@ -25,12 +24,12 @@ async function GetBestPrice(searchURL) {
 }
 
 bot.start((ctx) => {
-    ctx.reply("Bem vindo!" + JSON.stringify(ctx.reply))
+    // ctx.reply("Bem vindo!" + JSON.stringify(ctx.reply))
     ctx.reply("Digite '/watch' seguido de uma URL válida do site https://eshop-prices.com/, como por exemplo 'https://eshop-prices.com/games/5218-hades?currency=BRL'")
 })
 
 bot.hears(/\/watch\s*([^\n\r]*)/, (ctx) => {
-    ctx.reply("Registrado!" + JSON.stringify(ctx))
+    // ctx.reply("Registrado!" + JSON.stringify(ctx))
     ctx.reply("A URL é: " + ctx.match[1])
     GetBestPrice(ctx.match[1])
     .then((bestPrice)=> {
