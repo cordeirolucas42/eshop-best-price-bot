@@ -1,0 +1,21 @@
+{
+  "name": "http-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "got": "^11.7.0",
+    "http": "0.0.1-security",
+    "jsdom": "^16.4.0",
+    "nintendo-switch-eshop": "^3.0.3",
+    "pg": "^8.4.1",
+    "telegraf": "^3.38.0"
+  }
+}
